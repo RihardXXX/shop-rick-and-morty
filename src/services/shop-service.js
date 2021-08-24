@@ -23,7 +23,8 @@ const getResource = async (url) => {
 
 const transformCharacter = (character) => {
   const { id, name, gender, image, species, type } = character;
-  return { id, name, gender, image, species, type };
+  const price = (Math.random() * 100).toFixed(2);
+  return { id, name, gender, image, species, type, price };
 };
 
 const getAllBooks = async () => {

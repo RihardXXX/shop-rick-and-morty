@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../header';
 
+import './app.css';
+
 import { HomePage, CartPage } from '../pages';
 
 const App = () => {
@@ -14,7 +16,12 @@ const App = () => {
             path="/"
             exact
             render={() => {
-              return <h2>Welcome to shop goods Rick and Morty</h2>;
+              return (
+                <div className="main">
+                  <h2> Добро пожаловать в магазин Рик и Морти</h2>
+                  <img src="https://rickandmortyapi.com/api/character/avatar/2.jpeg" />
+                </div>
+              );
             }}
           />
           <Route

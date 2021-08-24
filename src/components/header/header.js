@@ -13,7 +13,7 @@ const Header = () => {
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
                 <Link className="nav-link" to="/homepage">
-                  герои
+                  товары
                   <span className="visually-hidden">(current)</span>
                 </Link>
               </li>
@@ -23,6 +23,13 @@ const Header = () => {
                 </Link>
               </li>
             </ul>
+            <div className="cart">
+              <i class="fas fa-shopping-cart fa-2x"></i>
+              <br />
+              <span>товаров: </span>
+              <br />
+              <span>цена: </span>
+            </div>
           </div>
         </div>
       </nav>

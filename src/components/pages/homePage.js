@@ -1,12 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ShopList from '../shop-list';
+
+import './homePage.css';
 
 const HomePage = () => {
   return (
-    <Fragment>
-      <h2>Тут вы можете купить товары для героев магазина</h2>
+    <div className="homePage">
+      <h2>Товары магазина</h2>
       <ShopList />
-    </Fragment>
+    </div>
   );
 };
 
