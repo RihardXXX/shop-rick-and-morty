@@ -24,7 +24,7 @@ const Header = () => {
               </li>
             </ul>
             <div className="cart">
-              <i class="fas fa-shopping-cart fa-2x"></i>
+              <i className="fas fa-shopping-cart fa-2x"></i>
               <br />
               <span>товаров: </span>
               <br />

@@ -5,7 +5,7 @@ import './shop-list-item.css';
 const ShopListItem = ({ book }) => {
   return (
     <Fragment>
-      <img src={book.image} className="item-image" />
+      <img src={book.image} className="item-image" alt="text book" />
       <span>
         <b>{book.name}</b>
       </span>

@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import ShopListItem from '../shop-list-item';
 import { connect } from 'react-redux';
-import { booksLoaded } from '../../actions';
+import { booksLoaded, booksLoading } from '../../actions';
 import { getAllBooks } from '../../services';
+import Spinner from '../spinner';
 
-const ShopList = ({ books, booksLoaded }) => {
+const ShopList = ({ books, booksLoaded, booksLoading, isLoading }) => {
   const loadBooks = () => {
+    booksLoading();
     getAllBooks().then((books) => booksLoaded(books));
   };
 
@@ -24,13 +26,16 @@ const ShopList = ({ books, booksLoaded }) => {
     );
   });
 
+  if (isLoading) return <Spinner />;
+
   return <ul className="list-group">{renderItem}</ul>;
 };
 
-const mapStateToProps = ({ books }) => ({ books });
+const mapStateToProps = ({ books, isLoading }) => ({ books, isLoading });
 
 const mapDispatchToProps = {
   booksLoaded,
+  booksLoading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopList);

@@ -6,9 +6,9 @@ const CartPage = () => {
   return (
     <div className="order">
       <h2>Ваши покупки</h2>
-      <table class="table table-hover">
+      <table className="table table-hover">
         <thead>
-          <tr class="table-active">
+          <tr className="table-active">
             <th scope="col">#</th>
             <th scope="col">наименование</th>
             <th scope="col">количество</th>
@@ -23,13 +23,13 @@ const CartPage = () => {
             <td>2</td>
             <td>$66</td>
             <td className="d-flex d-flex justify-content-around align-items-center">
-              <button type="button" class="btn btn-outline-warning">
+              <button type="button" className="btn btn-outline-warning">
                 -
               </button>
-              <button type="button" class="btn btn-outline-success">
+              <button type="button" className="btn btn-outline-success">
                 +
               </button>
-              <button type="button" class="btn btn-outline-danger">
+              <button type="button" className="btn btn-outline-danger">
                 x
               </button>
             </td>

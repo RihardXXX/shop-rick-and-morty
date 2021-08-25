@@ -19,7 +19,10 @@ const App = () => {
               return (
                 <div className="main">
                   <h2> Добро пожаловать в магазин Рик и Морти</h2>
-                  <img src="https://rickandmortyapi.com/api/character/avatar/2.jpeg" />
+                  <img
+                    src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
+                    alt="rick and morty"
+                  />
                 </div>
               );
             }}
