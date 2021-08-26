@@ -1,3 +1,9 @@
+const booksLoading = () => {
+  return {
+    type: 'LOADING_BOOKS',
+  };
+};
+
 const booksLoaded = (books) => {
   return {
     type: 'SUCCESS_BOOKS',
@@ -5,10 +11,11 @@ const booksLoaded = (books) => {
   };
 };
 
-const booksLoading = () => {
+const booksError = (error) => {
   return {
-    type: 'LOADING_BOOKS',
+    type: 'ERROR_BOOKS',
+    payload: error,
   };
 };
 
-export { booksLoaded, booksLoading };
+export { booksLoaded, booksLoading, booksError };

@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import ShopListItem from '../shop-list-item';
 import { connect } from 'react-redux';
-import { booksLoaded, booksLoading } from '../../actions';
+import ErrorIndicator from '../error-indicator';
+import { booksLoaded, booksLoading, booksError } from '../../actions';
 import { getAllBooks } from '../../services';
 import Spinner from '../spinner';
 
-const ShopList = ({ books, booksLoaded, booksLoading, isLoading }) => {
-  const loadBooks = () => {
-    booksLoading();
-    getAllBooks().then((books) => booksLoaded(books));
-  };
-
+const ShopList = ({ loadBooks, books, isLoading, error }) => {
   useEffect(() => {
     loadBooks();
   }, []);
@@ -27,15 +23,26 @@ const ShopList = ({ books, booksLoaded, booksLoading, isLoading }) => {
   });
 
   if (isLoading) return <Spinner />;
+  if (error) return <ErrorIndicator />;
 
   return <ul className="list-group">{renderItem}</ul>;
 };
 
-const mapStateToProps = ({ books, isLoading }) => ({ books, isLoading });
+const mapStateToProps = ({ books, isLoading, error }) => ({
+  books,
+  isLoading,
+  error,
+});
 
-const mapDispatchToProps = {
-  booksLoaded,
-  booksLoading,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadBooks: () => {
+      dispatch(booksLoading());
+      getAllBooks()
+        .then((books) => dispatch(booksLoaded(books)))
+        .catch((error) => dispatch(booksError(error)));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopList);
