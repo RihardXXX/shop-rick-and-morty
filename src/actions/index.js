@@ -1,21 +1,28 @@
 const booksLoading = () => {
   return {
-    type: 'LOADING_BOOKS',
+    type: 'FETCH_BOOKS_START',
   };
 };
 
 const booksLoaded = (books) => {
   return {
-    type: 'SUCCESS_BOOKS',
+    type: 'FETCH_BOOKS_SUCCESS',
     payload: books,
   };
 };
 
 const booksError = (error) => {
   return {
-    type: 'ERROR_BOOKS',
+    type: 'FETCH_BOOKS_FAILURE',
     payload: error,
   };
 };
 
-export { booksLoaded, booksLoading, booksError };
+const loadBooks = (getAllBooks, dispatch) => () => {
+  dispatch(booksLoading());
+  getAllBooks()
+    .then((books) => dispatch(booksLoaded(books)))
+    .catch((error) => dispatch(booksError(error)));
+};
+
+export { loadBooks };
