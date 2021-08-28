@@ -18,6 +18,13 @@ const booksError = (error) => {
   };
 };
 
+const addToProduct = (id) => {
+  return {
+    type: 'ADD_TO_PRODUCT',
+    payload: id,
+  };
+};
+
 const loadBooks = (getAllBooks, dispatch) => () => {
   dispatch(booksLoading());
   getAllBooks()
@@ -25,4 +32,4 @@ const loadBooks = (getAllBooks, dispatch) => () => {
     .catch((error) => dispatch(booksError(error)));
 };
 
-export { loadBooks };
+export { loadBooks, addToProduct };

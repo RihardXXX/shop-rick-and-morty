@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import ShopListItem from '../shop-list-item';
 import { connect } from 'react-redux';
 import ErrorIndicator from '../error-indicator';
-import { loadBooks } from '../../actions';
+import { loadBooks, addToProduct } from '../../actions';
 import { getAllBooks } from '../../services';
 import Spinner from '../spinner';
 
 // Эта компонента просто запускает отрисовку
-const ShopList = ({ books }) => {
+const ShopList = ({ books, addToProduct }) => {
   return (
     <ul className="list-group">
       {books.map((book) => {
@@ -16,7 +16,10 @@ const ShopList = ({ books }) => {
             key={book.id}
             className="list-group-item d-flex justify-content-around align-items-center"
           >
-            <ShopListItem book={book} />
+            <ShopListItem
+              book={book}
+              addToProduct={() => addToProduct(book.id)}
+            />
           </li>
         );
       })}
@@ -25,7 +28,13 @@ const ShopList = ({ books }) => {
 };
 
 // Контейнер компонент который получает сосотояние и экшен и в хуке моунт запускает фетч
-const ShopListContainer = ({ loadBooks, books, isLoading, error }) => {
+const ShopListContainer = ({
+  loadBooks,
+  addToProduct,
+  books,
+  isLoading,
+  error,
+}) => {
   useEffect(() => {
     loadBooks();
   }, []);
@@ -33,7 +42,7 @@ const ShopListContainer = ({ loadBooks, books, isLoading, error }) => {
   if (isLoading) return <Spinner />;
   if (error) return <ErrorIndicator />;
 
-  return <ShopList books={books} />;
+  return <ShopList books={books} addToProduct={addToProduct} />;
 };
 
 // импортируем состояние из редакса и кладем для реакт компонента
@@ -47,6 +56,7 @@ const mapStateToProps = ({ books, isLoading, error }) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     loadBooks: loadBooks(getAllBooks, dispatch),
+    addToProduct: (id) => dispatch(addToProduct(id)),
   };
 };
 
