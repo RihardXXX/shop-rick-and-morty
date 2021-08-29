@@ -1,5 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  deleteProduct,
+  incrementProduct,
+  decrementProduct,
+} from '../../actions';
 
 import './cartPage.css';
 
@@ -19,11 +24,16 @@ const CartPage = ({ items, totals, onIncrement, onDecrement, onDelete }) => {
         </thead>
         <tbody>
           {items.map((item, idx) => {
-            const { id, name, count, total } = item;
+            const { id, name, count, total, image } = item;
             return (
               <tr key={id}>
                 <th scope="row">{idx + 1}</th>
-                <td>{name}</td>
+                <td>
+                  <span className="label-item">
+                    <img src={image} />
+                  </span>
+                  {name}
+                </td>
                 <td>{count}</td>
                 <td>${total}</td>
                 <td className="d-flex d-flex justify-content-around align-items-center">
@@ -70,15 +80,9 @@ const mapStateToProps = ({ cartItems, totalOrders }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIncrement: (id) => {
-      console.log(`Increment ${id}`);
-    },
-    onDecrement: (id) => {
-      console.log(`Decrement ${id}`);
-    },
-    onDelete: (id) => {
-      console.log(`Delete ${id}`);
-    },
+    onIncrement: (id) => dispatch(incrementProduct(id)),
+    onDecrement: (id) => dispatch(decrementProduct(id)),
+    onDelete: (id) => dispatch(deleteProduct(id)),
   };
 };
 

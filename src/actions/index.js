@@ -25,6 +25,27 @@ const addToProduct = (id) => {
   };
 };
 
+const deleteProduct = (id) => {
+  return {
+    type: 'DELETE_PRODUCT',
+    payload: id,
+  };
+};
+
+const incrementProduct = (id) => {
+  return {
+    type: 'INCREMENT_PRODUCT',
+    payload: id,
+  };
+};
+
+const decrementProduct = (id) => {
+  return {
+    type: 'DECREMENT_PRODUCT',
+    payload: id,
+  };
+};
+
 const loadBooks = (getAllBooks, dispatch) => () => {
   dispatch(booksLoading());
   getAllBooks()
@@ -32,4 +53,10 @@ const loadBooks = (getAllBooks, dispatch) => () => {
     .catch((error) => dispatch(booksError(error)));
 };
 
-export { loadBooks, addToProduct };
+export {
+  loadBooks,
+  addToProduct,
+  deleteProduct,
+  incrementProduct,
+  decrementProduct,
+};

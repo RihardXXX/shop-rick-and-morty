@@ -51,7 +51,54 @@ const updateCartItems = (state, currentProduct, idProduct) => {
   }
 };
 
+// удаление товара
+const deleteGood = (state, idProduct) => {
+  const newCartItems = state.cartItems.filter((item) => item.id !== idProduct);
+  return {
+    ...state,
+    cartItems: newCartItems,
+  };
+};
+
+// универсальная функция которая добавляет или удаляет товар с
+const operationDecInc = (state, idProduct, nameOperation) => {
+  const carts = state.cartItems;
+  const incProduct = carts.find((item) => item.id === idProduct);
+  const indexProd = carts.indexOf(incProduct);
+  const newCount =
+    nameOperation === 'inc' ? ++incProduct.count : --incProduct.count;
+  console.log(newCount);
+  // если до 0 количество товара дошло
+  if (newCount <= 0) {
+    return deleteGood(state, idProduct);
+    // return { ...state };
+  }
+  const newIncProduct = {
+    ...incProduct,
+    count: newCount,
+    total: newCount * 100,
+  };
+  const newCartItems = [
+    ...carts.slice(0, indexProd),
+    newIncProduct,
+    ...carts.slice(indexProd + 1),
+  ];
+  return {
+    ...state,
+    cartItems: newCartItems,
+  };
+};
+
+//добавления количества товара
+const incrementGood = (state, idProduct) =>
+  operationDecInc(state, idProduct, 'inc');
+
+//уменьшение количества товара
+const decrementGood = (state, idProduct) =>
+  operationDecInc(state, idProduct, 'dec');
+
 const reducer = (state = initialState, action) => {
+  console.log('action.type', action.type);
   switch (action.type) {
     case 'FETCH_BOOKS_START':
       return {
@@ -78,6 +125,12 @@ const reducer = (state = initialState, action) => {
       const idProduct = action.payload;
       const currentProduct = state.books.find((item) => item.id === idProduct);
       return updateCartItems(state, currentProduct, idProduct);
+    case 'DELETE_PRODUCT':
+      return deleteGood(state, action.payload);
+    case 'INCREMENT_PRODUCT':
+      return incrementGood(state, action.payload);
+    case 'DECREMENT_PRODUCT':
+      return decrementGood(state, action.payload);
     default:
       return state;
   }

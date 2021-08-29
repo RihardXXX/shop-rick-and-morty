@@ -1,3 +1,8 @@
 .order {
   text-align: center;
 }
+
+.label-item img {
+  height: 35px;
+  width: 35px;
+}
