@@ -71,7 +71,7 @@ const CartPage = ({ items, totals, onIncrement, onDecrement, onDelete }) => {
   );
 };
 
-const mapStateToProps = ({ cartItems, totalOrders }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, totalOrders } }) => {
   return {
     items: cartItems,
     totals: totalOrders,

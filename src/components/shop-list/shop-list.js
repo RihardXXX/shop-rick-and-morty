@@ -46,7 +46,7 @@ const ShopListContainer = ({
 };
 
 // импортируем состояние из редакса и кладем для реакт компонента
-const mapStateToProps = ({ books, isLoading, error }) => ({
+const mapStateToProps = ({ bookList: { books, isLoading, error } }) => ({
   books,
   isLoading,
   error,

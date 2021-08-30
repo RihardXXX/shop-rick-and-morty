@@ -49,7 +49,9 @@ const decrementProduct = (id) => {
 const loadBooks = (getAllBooks, dispatch) => () => {
   dispatch(booksLoading());
   getAllBooks()
-    .then((books) => dispatch(booksLoaded(books)))
+    .then((books) => {
+      dispatch(booksLoaded(books));
+    })
     .catch((error) => dispatch(booksError(error)));
 };
 
