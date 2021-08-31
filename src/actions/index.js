@@ -55,10 +55,17 @@ const loadBooks = (getAllBooks, dispatch) => () => {
     .catch((error) => dispatch(booksError(error)));
 };
 
+const loadTotalAmount = () => {
+  return {
+    type: 'TOTAL_AMOUNT_CART',
+  };
+};
+
 export {
   loadBooks,
   addToProduct,
   deleteProduct,
   incrementProduct,
   decrementProduct,
+  loadTotalAmount,
 };

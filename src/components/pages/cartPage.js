@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   deleteProduct,
   incrementProduct,
   decrementProduct,
+  loadTotalAmount,
 } from '../../actions';
 
 import './cartPage.css';
 
-const CartPage = ({ items, totals, onIncrement, onDecrement, onDelete }) => {
+const CartPage = ({
+  items,
+  totals,
+  onIncrement,
+  onDecrement,
+  onDelete,
+  loadTotalAmount,
+}) => {
+  useEffect(() => {
+    console.log(loadTotalAmount);
+    loadTotalAmount(loadTotalAmount);
+    // return () => {};
+  }, ['loadTotalAmount']);
+
   return (
     <div className="order">
       <h2>Ваши покупки</h2>
@@ -65,21 +79,22 @@ const CartPage = ({ items, totals, onIncrement, onDecrement, onDelete }) => {
         </tbody>
       </table>
       <div>
-        <span className="badge bg-info">общая сумма: {totals}$</span>
+        <span className="badge bg-info">общая сумма: $ {totals}</span>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ shoppingCart: { cartItems, totalOrders } }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }) => {
   return {
     items: cartItems,
-    totals: totalOrders,
+    totals: orderTotal,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    loadTotalAmount: () => dispatch(loadTotalAmount()),
     onIncrement: (id) => dispatch(incrementProduct(id)),
     onDecrement: (id) => dispatch(decrementProduct(id)),
     onDelete: (id) => dispatch(deleteProduct(id)),

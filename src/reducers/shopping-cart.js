@@ -1,3 +1,6 @@
+//для сложения общих покупок
+const sumTotal = (arr) => arr.reduce((acc, current) => acc + current.total, 0);
+
 const updateCartItems = (state, currentProduct, idProduct) => {
   // с сервера цены и количества нет имитируем это тут
   let count = 1;
@@ -50,8 +53,11 @@ const deleteGood = (state, idProduct) => {
   const newCartItems = state.shoppingCart.cartItems.filter(
     (item) => item.id !== idProduct
   );
+
+  const newTotalAmount = sumTotal(newCartItems);
+
   return {
-    totalOrders: 0,
+    orderTotal: newTotalAmount,
     cartItems: newCartItems,
   };
 };
@@ -79,8 +85,9 @@ const operationDecInc = (state, idProduct, nameOperation) => {
     newIncProduct,
     ...carts.slice(indexProd + 1),
   ];
+  const newTotalAmount = sumTotal(newCartItems);
   return {
-    totalOrders: 0,
+    orderTotal: newTotalAmount,
     cartItems: newCartItems,
   };
 };
@@ -93,8 +100,23 @@ const incrementGood = (state, idProduct) =>
 const decrementGood = (state, idProduct) =>
   operationDecInc(state, idProduct, 'dec');
 
+const createTotalAmount = (state) => {
+  console.log(state);
+  const newTotalAmount = state.shoppingCart.cartItems.reduce((acc, current) => {
+    console.log(current);
+    return acc + current.total;
+  }, 0);
+  console.log('newTotalAmount', newTotalAmount);
+
+  return {
+    orderTotal: newTotalAmount,
+    ...state.shoppingCart,
+  };
+};
+
 const updateShoppingCart = (state, action) => {
-  console.log(' updateShoppingCart', state);
+  // console.log(' updateShoppingCart', state);
+
   if (state === undefined) {
     return {
       cartItems: [],
@@ -115,6 +137,8 @@ const updateShoppingCart = (state, action) => {
       return incrementGood(state, action.payload);
     case 'DECREMENT_PRODUCT':
       return decrementGood(state, action.payload);
+    case 'TOTAL_AMOUNT_CART':
+      return createTotalAmount(state);
     default:
       return state.shoppingCart;
   }
